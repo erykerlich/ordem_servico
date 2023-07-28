@@ -57,8 +57,13 @@ public class TecnicoService {
     }
 
 
-
-
-
-
+    public void delete(Integer id) {
+        //se existir vai receber como tecnico com o id de parametro
+        Tecnico obj = findById(id);
+        //Verefica se tem ordens de serviço
+        if(obj.getList().size() > 0) {
+            throw new DataIntegratyViolationException("Técnico possui ordens de serviço ! Não pode ser deletado.");
+        }
+        tecnicoRepository.deleteById(id);
+    }
 }
