@@ -1,7 +1,9 @@
 package com.eryk.os.services;
 
+import com.eryk.os.domain.Pessoa;
 import com.eryk.os.domain.Tecnico;
 import com.eryk.os.dtos.TecnicoDTO;
+import com.eryk.os.repositories.PessoaRepository;
 import com.eryk.os.repositories.TecnicoRepository;
 import com.eryk.os.services.exceptions.DataIntegratyViolationException;
 import com.eryk.os.services.exceptions.ObjectNotFoundException;
@@ -18,6 +20,10 @@ public class TecnicoService {
 
     @Autowired
     private TecnicoRepository tecnicoRepository;
+
+    @Autowired
+    private PessoaRepository pessoaRepository;
+
     public Tecnico findById(Integer id) {
        Optional<Tecnico> obj = tecnicoRepository.findById(id);
        return obj.orElseThrow(() -> new ObjectNotFoundException
@@ -28,8 +34,8 @@ public class TecnicoService {
        return tecnicoRepository.findAll();
     }
 
-    private Tecnico findByCPF(TecnicoDTO objDto) {
-        Tecnico obj = tecnicoRepository.findByCPF(objDto.getCpf());
+    private Pessoa findByCPF(TecnicoDTO objDto) {
+        Pessoa obj = pessoaRepository.findByCPF(objDto.getCpf());
         if(obj != null) {
             return obj;
         }
