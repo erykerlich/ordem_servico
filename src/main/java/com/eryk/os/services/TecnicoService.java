@@ -28,13 +28,6 @@ public class TecnicoService {
        return tecnicoRepository.findAll();
     }
 
-    public Tecnico create(TecnicoDTO objDto) {
-        if(findByCPF(objDto) != null) {
-            throw new DataIntegratyViolationException("CPF já cadastrado na base de dados !");
-        }
-        Tecnico newObj = new Tecnico(null, objDto.getName(), objDto.getCpf(), objDto.getCellphone());
-        return tecnicoRepository.save(newObj);
-    }
     private Tecnico findByCPF(TecnicoDTO objDto) {
         Tecnico obj = tecnicoRepository.findByCPF(objDto.getCpf());
         if(obj != null) {
@@ -42,4 +35,30 @@ public class TecnicoService {
         }
         return null;
     }
+
+    public Tecnico create(TecnicoDTO objDto) {
+        if(findByCPF(objDto) != null) {
+            throw new DataIntegratyViolationException("CPF já cadastrado na base de dados !");
+        }
+        Tecnico newObj = new Tecnico(null, objDto.getName(), objDto.getCpf(), objDto.getCellphone());
+        return tecnicoRepository.save(newObj);
+    }
+
+    public Tecnico update(Integer id, TecnicoDTO objDto) {
+        Tecnico oldObj = findById(id);
+        //Verifica se o cpf existe e se bate com o id passado
+        if(findByCPF(objDto) != null && findByCPF(objDto).getId() != id) {
+            throw new DataIntegratyViolationException("CPF ja cadastrado na base de dados !");
+        }
+        oldObj.setName(objDto.getName());
+        oldObj.setCpf(objDto.getCpf());
+        oldObj.setCellphone(objDto.getCellphone());
+        return tecnicoRepository.save(oldObj);
+    }
+
+
+
+
+
+
 }
