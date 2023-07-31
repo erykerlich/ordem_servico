@@ -3,6 +3,7 @@ package com.eryk.os.dtos;
 
 import com.eryk.os.domain.OS;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotEmpty;
 
 
 import java.io.Serializable;
@@ -16,6 +17,7 @@ public class OsDTO implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataFinished;
     private Integer priority;
+    @NotEmpty(message = "O campo OBSERVAÇÕES é obrigatorio !")
     private String observacoes;
     private Integer status;
     private Integer tecnico;

@@ -3,13 +3,13 @@ package com.eryk.os.controllers;
 import com.eryk.os.domain.OS;
 import com.eryk.os.dtos.OsDTO;
 import com.eryk.os.services.OsService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,5 +39,11 @@ public class OsController {
         return ResponseEntity.ok().body(listDto);
     }
 
-
+    @PostMapping
+    public ResponseEntity<OsDTO> create(@Valid @RequestBody OsDTO objDto) {
+        objDto = new OsDTO(osService.create(objDto));
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(objDto.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
 }

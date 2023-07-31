@@ -4,6 +4,7 @@ import com.eryk.os.domain.enuns.Priority;
 import com.eryk.os.domain.enuns.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 
 import java.time.LocalDateTime;
