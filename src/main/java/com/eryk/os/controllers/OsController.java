@@ -46,4 +46,11 @@ public class OsController {
                 .buildAndExpand(objDto.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping()
+    public ResponseEntity<OsDTO> update(@Valid @RequestBody OsDTO obj) {
+        obj = new OsDTO(osService.update(obj));
+        return ResponseEntity.ok().body(obj);
+    }
+
 }
