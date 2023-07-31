@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/os")
 public class OsController {
@@ -24,6 +27,16 @@ public class OsController {
         OS obj = osService.findById(id);
         OsDTO objDto = new OsDTO(obj);
         return ResponseEntity.ok().body(objDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OsDTO>> findAll() {
+        List<OS> list = osService.findAll();
+        List<OsDTO> listDto = new ArrayList<>();
+        for (OS obj : list) {
+            listDto.add(new OsDTO(obj));
+        }
+        return ResponseEntity.ok().body(listDto);
     }
 
 

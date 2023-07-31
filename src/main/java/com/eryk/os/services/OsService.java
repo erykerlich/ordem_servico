@@ -7,6 +7,7 @@ import com.eryk.os.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,4 +22,7 @@ public class OsService {
     + ", Tipo: " + OS.class.getName()));
     }
 
+    public List<OS> findAll() {
+        return osRepository.findAll();
+    }
 }
