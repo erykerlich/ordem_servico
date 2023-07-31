@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OSRepository extends JpaRepository<OS, Integer> {
+
+
 }
